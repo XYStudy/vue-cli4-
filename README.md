@@ -11,3 +11,29 @@
     lintOnSave: false, //eslint不作校验
     publicPath:""
 }
+6.proxy设置代理
+module.exports = {
+    lintOnSave: false, //eslint不作校验
+    publicPath:""
+
+    主要是对proxy的设置
+    proxy: {
+        '/api': {
+            target: 'http://sso-frontend-service.dev.svc.cluster.local:18201',
+            changeOrigin: true,
+            ws: true,
+            pathRewrite: {
+                '^/api': ''
+            }
+        },
+        '/api1': {
+            target: 'http://frontend-service.dev.svc.cluster.local:18101',
+            changeOrigin: true,
+            ws: true,
+            pathRewrite: {
+                '^/api1': ''
+            }
+        }
+    }
+}
+设置了proxy后，在配置请求地址的地方，将地址改成api 变量即可
